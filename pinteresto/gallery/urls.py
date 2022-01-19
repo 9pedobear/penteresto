@@ -6,9 +6,10 @@ from .views import *
 
 app_name = 'gallery'
 urlpatterns = [
-    path('', index),
-    path('post/<int:post_id>', detail, name='detail')
-
+    path('', index, name='index'),
+    path('post/<int:pk>', detail, name='detail'),
+    path('post/<int:pk>/edit/', post_edit, name='post_edit'),
+    path('post/new/', post_new, name='post_new'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
