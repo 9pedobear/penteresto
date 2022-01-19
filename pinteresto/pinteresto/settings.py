@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gallery',
     'user',
+    'pinteresto'
 ]
 
 MIDDLEWARE = [
