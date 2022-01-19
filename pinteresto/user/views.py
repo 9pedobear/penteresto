@@ -7,7 +7,6 @@ from gallery.models import Post
 
 @login_required()
 def author(request):
-    posts = Post.objects.get()
     return render(request, 'user/author.html')
 
 

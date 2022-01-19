@@ -11,6 +11,12 @@
     		<div class="col-md-7">
     			<article class="card">
     			<img class="card-img-top mb-2" src="/media/{{post.image}}" alt="Card image">
+					{% if user == post.author %}
+					<div class="container mb-2">
+						<button class="navbar-light navbar-toggler"><a href="{% url 'gallery:post_edit' pk=post.pk %}">Редактировать</a></button>
+						<button class="navbar-light navbar-toggler"><a href="{% url 'gallery:post_delete' pk=post.pk %}">Удалить</a></button>
+					</div>
+					{% endif %}
 
     			<div class="card-body">
     				<h1 class="card-title display-4">
@@ -54,26 +60,24 @@
     </div>
     <div class="container-fluid">
     	<div class="row">
-			{% if posts_list %}
-				{% for a in posts_list %}
 					<div class="card-columns">
-						<div class="card card-pin">
-							<img class="card-img" src="/media/{{ a.image }}" alt="Card image">
-							<div class="overlay">
-								<h2 class="card-title title">{{a.title}}</h2>
-								<div class="more">
-									<a href="{% url 'gallery:detail' a.id %}">
-									<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
+						{% if posts_list %}
+							{% for a in posts_list %}
+								<div class="card card-pin">
+									<img class="card-img" src="/media/{{ a.image }}" alt="Card image">
+									<div class="overlay">
+										<h2 class="card-title title">{{a.title}}</h2>
+										<div class="more">
+											<a href="{% url 'gallery:detail' a.id %}">
+											<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> More </a>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
+							{% endfor %}
+						{% else %}
+							<h1>Нет постов</h1>
+						{% endif %}
 					</div>
-				{% endfor %}
-
-			{% else %}
-				<h1>Нет постов</h1>
-			{% endif %}
-
     	</div>
     </div>
     </section>
