@@ -42,10 +42,10 @@
                 <a class="nav-link" href="{% url 'logout' %}">Log out</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'author' %}"><img
+                <a class="nav-link" href="{% url 'author' username=request.user %}"><img
                         class="rounded-circle mr-2"
                         src="{% static 'assets/img/av.png' %}" width="30"><span
-                        class="align-middle">{{request.user.username}}</span></a>
+                        class="align-middle">{{request.user}}</span></a>
                 </li>
 
             {% else %}

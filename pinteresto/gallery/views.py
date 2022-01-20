@@ -16,10 +16,12 @@ def detail(request, pk):
     posts_list = Post.objects.all()
     try:
         post = Post.objects.get(pk=pk)
+        post.views.add(request.user)
         total_likes = post.total_likes()
+        total_views = post.total_views()
     except:
         raise Http404("Пост не найден.")
-    return render(request, 'gallery/post.html', {'post': post, 'posts_list': posts_list, 'total_likes': total_likes})
+    return render(request, 'gallery/post.html', {'post': post, 'posts_list': posts_list, 'total_likes': total_likes, 'total_views': total_views})
 
 
 @login_required()

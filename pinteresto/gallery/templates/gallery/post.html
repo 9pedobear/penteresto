@@ -11,27 +11,30 @@
     		<div class="col-md-7">
     			<article class="card">
     			<img class="card-img-top mb-2" src="/media/{{post.image}}" alt="Card image">
+					<form action="{% url 'gallery:like_post' post.pk %}" method="POST">
+						{% csrf_token %}
+						<button type="submit" class="btn btn-success">Like</button>  <small>Лайков - <b>{{ total_likes }}</b> Просмотры - <b>{{ total_views }}</b></small>
+					</form>
+
 					{% if user == post.author %}
-					<div class="container mb-2">
-						<button class="save btn btn-default"><a href="{% url 'gallery:post_edit' pk=post.pk %}">Редактировать</a></button>
-						<button class="save btn btn-default"><a href="{% url 'gallery:post_delete' pk=post.pk %}">Удалить</a></button>
-						{% endif %}
-						<from action="{% url 'gallery:like_post' post.pk %}" method="POST">
-							{% csrf_token %}
-							<button type="submit" class="save btn btn-success">Like</button> - {{ total_likes }} Likes
-						</from>
-					</div>
+				<div class="container mb-2">
+					<button class="save btn btn-default"><a href="{% url 'gallery:post_edit' pk=post.pk %}">Редактировать</a></button>
+					<button type="submit" class="save btn btn-default"><a href="{% url 'gallery:post_delete' pk=post.pk %}">Удалить</a></button>
+				{% endif %}
+				</div>
     			<div class="card-body">
-    				<h1 class="card-title display-4">
-    				{{ post.title }} </h1>
     				<ul>
-						<li>{{ post.content }}</li>
-						<br><br>
+						<h1 class="card-title display-4">{{ post.title }} </h1>
+					</ul>
+
+    				<ul>
+						<p>{{ post.content }}</p>
+						<br>
 						<hr><b>{{ post.tag }}</b>
 
 						<hr>
 						<em>{{ post.pub_date_post }}hr</em>
-						<em><a href="#">{{ post.author }}</a></em>
+						<em><a href="{% url 'author' username=post.author %}">{{ post.author }}</a></em>
     				</ul>
     				<small class="d-block"><a class="btn btn-sm btn-gray200" href="#"><i class="fa fa-external-link"></i> Visit Website</a></small>
     				<!-- Begin Comments -replace demowebsite with your own id

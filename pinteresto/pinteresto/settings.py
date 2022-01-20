@@ -79,8 +79,8 @@ WSGI_APPLICATION = 'pinteresto.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'post',
-        'USER': 'root',
+        'NAME': 'pinteresto',
+        'USER': 'postgres',
         'PASSWORD': '12345',
         'HOST': 'localhost',
         'PORT': '',
