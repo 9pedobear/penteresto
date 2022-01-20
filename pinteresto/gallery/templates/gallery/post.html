@@ -13,15 +13,14 @@
     			<img class="card-img-top mb-2" src="/media/{{post.image}}" alt="Card image">
 					{% if user == post.author %}
 					<div class="container mb-2">
-						<button class="navbar-light navbar-toggler"><a href="{% url 'gallery:post_edit' pk=post.pk %}">Редактировать</a></button>
-						<button class="navbar-light navbar-toggler"><a href="{% url 'gallery:post_delete' pk=post.pk %}">Удалить</a></button>
+						<button class="save btn btn-default"><a href="{% url 'gallery:post_edit' pk=post.pk %}">Редактировать</a></button>
+						<button class="save btn btn-default"><a href="{% url 'gallery:post_delete' pk=post.pk %}">Удалить</a></button>
+						{% endif %}
+						<from action="{% url 'gallery:like_post' post.pk %}" method="POST">
+							{% csrf_token %}
+							<button type="submit" class="save btn btn-success">Like</button> - {{ total_likes }} Likes
+						</from>
 					</div>
-					{% endif %}
-					<from action="{% url 'gallery:like_post' post.pk %}" method="POST">
-						{% csrf_token %}
-						<button type="submit" class="navbar-light navbar-toggler">Like</button> - {{ total_likes }} Likes
-					</from>
-
     			<div class="card-body">
     				<h1 class="card-title display-4">
     				{{ post.title }} </h1>

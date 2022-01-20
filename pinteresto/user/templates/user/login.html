@@ -6,7 +6,7 @@
   {% csrf_token %}
   <div class="container">
     <h1>Sign In</h1>
-    {{ form }}
+    {{ form.as_p }}
       <div class="form-group" id="signup-button">
         <button class="btn ">Sign In</button>
       </div>
