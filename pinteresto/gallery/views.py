@@ -1,9 +1,10 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
 from .models import Post
 from .forms import PostForm
-
 
 
 def index(request):
@@ -15,10 +16,10 @@ def detail(request, pk):
     posts_list = Post.objects.all()
     try:
         post = Post.objects.get(pk=pk)
+        total_likes = post.total_likes()
     except:
         raise Http404("Пост не найден.")
-
-    return render(request, 'gallery/post.html', {'post': post, 'posts_list': posts_list})
+    return render(request, 'gallery/post.html', {'post': post, 'posts_list': posts_list, 'total_likes': total_likes})
 
 
 @login_required()
@@ -29,11 +30,9 @@ def post_new(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            print('post_new')
             return redirect('/', pk=post.pk)
     else:
         form = PostForm()
-        print('post_else')
     return render(request, 'gallery/post_edit.html', {'form': form})
 
 
@@ -41,7 +40,7 @@ def post_new(request):
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -52,7 +51,15 @@ def post_edit(request, pk):
     return render(request, 'gallery/post_edit.html', {'form': form})
 
 
+@login_required()
 def post_delete(request, pk):
     post = Post.objects.get(pk=pk)
     post.delete()
     return redirect("/")
+
+
+@login_required()
+def like_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('gallery:detail', args=[str(pk)]))

@@ -17,20 +17,22 @@
 						<button class="navbar-light navbar-toggler"><a href="{% url 'gallery:post_delete' pk=post.pk %}">Удалить</a></button>
 					</div>
 					{% endif %}
+					<from action="{% url 'gallery:like_post' post.pk %}" method="POST">
+						{% csrf_token %}
+						<button type="submit" class="navbar-light navbar-toggler">Like</button> - {{ total_likes }} Likes
+					</from>
 
     			<div class="card-body">
     				<h1 class="card-title display-4">
     				{{ post.title }} </h1>
     				<ul>
-
-    					<li>{{ post.content }}</li>
+						<li>{{ post.content }}</li>
 						<br><br>
 						<hr><b>{{ post.tag }}</b>
 
 						<hr>
 						<em>{{ post.pub_date_post }}hr</em>
 						<em><a href="#">{{ post.author }}</a></em>
-
     				</ul>
     				<small class="d-block"><a class="btn btn-sm btn-gray200" href="#"><i class="fa fa-external-link"></i> Visit Website</a></small>
     				<!-- Begin Comments -replace demowebsite with your own id
