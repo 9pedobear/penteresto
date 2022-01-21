@@ -39,9 +39,6 @@
                 <a class="nav-link" href="{% url 'gallery:post_new' %}">Create new post</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Log out</a>
-                </li>
-                <li class="nav-item">
                 <a class="nav-link" href="{% url 'author' username=request.user %}"><img
                         class="rounded-circle mr-2"
                         src="{% static 'assets/img/av.png' %}" width="30"><span
@@ -52,9 +49,6 @@
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}">Log in</a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}">Register</a>
-                </li>
             {% endif %}
 
     		<li class="nav-item dropdown">
@@ -62,10 +56,13 @@
     		<svg style="margin-top:10px;" class="_3DJPT" version="1.1" viewbox="0 0 32 32" width="21" height="21" aria-hidden="false" data-reactid="71"><path d="M7 15.5c0 1.9-1.6 3.5-3.5 3.5s-3.5-1.6-3.5-3.5 1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5zm21.5-3.5c-1.9 0-3.5 1.6-3.5 3.5s1.6 3.5 3.5 3.5 3.5-1.6 3.5-3.5-1.6-3.5-3.5-3.5zm-12.5 0c-1.9 0-3.5 1.6-3.5 3.5s1.6 3.5 3.5 3.5 3.5-1.6 3.5-3.5-1.6-3.5-3.5-3.5z" data-reactid="22"></path></svg>
     		</a>
     		<div class="dropdown-menu dropdown-menu-right shadow-lg" aria-labelledby="dropdown02">
-    			<h4 class="dropdown-header display-4">Данный сайт разработан aeSYNK<br/> Исходный материал взят с bootstrap</h4>
+    			<h4 class="dropdown-header display-4">Личное меню<br/> {{request.user}}</h4>
     			<div class="dropdown-divider">
     			</div>
-    			<span class="dropdown-item"><a href="https://github.com/wowthemesnet/template-pintereso-bootstrap-html/archive/master.zip" class="btn btn-primary d-block"><i class="fa fa-download"></i> Download</a></span>
+    			<span class="dropdown-item"><a href="https://github.com/wowthemesnet/template-pintereso-bootstrap-html/archive/master.zip" class="btn btn-primary d-block"><i class="fa fa-download fa-lg"></i> Скачать шаблон</a></span>
+    			<span class="dropdown-item"><a href="#" class="btn btn-primary d-block"><i class="fa fa-cog fa-lg"></i> Настройки</a></span>
+    			<span class="dropdown-item"><a href="{% url 'logout' %}" class="btn btn-primary d-block"><i class="fa fa-sign-out fa-lg"></i> Выйти</a></span>
+
     		</div>
     		</li>
     	</ul>

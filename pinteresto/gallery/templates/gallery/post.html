@@ -18,8 +18,8 @@
 
 					{% if user == post.author %}
 				<div class="container mb-2">
-					<button class="save btn btn-default"><a href="{% url 'gallery:post_edit' pk=post.pk %}">Редактировать</a></button>
-					<button type="submit" class="save btn btn-default"><a href="{% url 'gallery:post_delete' pk=post.pk %}">Удалить</a></button>
+					<button class="save btn btn-default"><i class='fa fa-pencil fa-lg'></i><a href="{% url 'gallery:post_edit' pk=post.pk %}"> Редактировать</a></button>
+					<button type="submit" class="save btn btn-default"><i class="fa fa-trash-o fa-lg"></i><a href="{% url 'gallery:post_delete' pk=post.pk %}"> Удалить</a></button>
 				{% endif %}
 				</div>
     			<div class="card-body">
