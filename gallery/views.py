@@ -18,9 +18,10 @@ class UpdateNews(UpdateView):
     template_name_suffix = '_update_form'
 
 class CreateNews(CreateView):
-    model = Blog
-    fields = ['title', 'text', 'category', 'image', 'author', 'is_published',
-              'slug']
+    form_class = NewsForm
+    # model = Blog
+    # fields = ['title', 'text', 'category', 'image', 'author', 'is_published',
+    #           'slug']
     template_name = 'gallery/add_post.html'
 
 
