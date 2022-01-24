@@ -6,6 +6,7 @@ from pinteresto import settings
 urlpatterns = [
     path('', Index.as_view(), name='detail'),
     path('category/<str:slug>', get_category, name='category'),
+    path('category/<str:slug>/', PostsByCategory.as_view(), name='category'),
     path('detail/<str:slug>', PostView.as_view(), name='detail'),
     path('add-news/', CreateNews.as_view(), name='add_news'),
     path('update-news/<str:slug>', UpdateNews.as_view(), name='update_news'),
