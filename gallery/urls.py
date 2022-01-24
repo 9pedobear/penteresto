@@ -9,5 +9,6 @@ urlpatterns = [
     path('add-news/', CreateNews.as_view(), name='add_news'),
     path('update-news/<str:slug>', UpdateNews.as_view(), name='update_news'),
     path('delete-news/<str:slug>', DeleteNews.as_view(), name='delete_news'),
+    path('home/', home, name='home'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

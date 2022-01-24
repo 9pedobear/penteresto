@@ -1,13 +1,34 @@
+import os
+
 from django.shortcuts import render
+
+from pinteresto import settings
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, \
     UpdateView, DeleteView
 from django.db.models import F
 from .forms import *
 from django.urls import reverse_lazy
+from django.http import HttpResponse, Http404
 
 
 # Create your views here.
+def home(request):
+    context = {'file':FilesAdmin.objects.all()}
+    return render(request, 'gallery/home.html', context=context)
+
+def download(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(),
+                                    content_type='application/adminupload')
+            response['Content-Disposition'] = \
+                'inline;filname='+os.path.basename(file_path)
+            return response
+    raise Http404
+
+
 class DeleteNews(DeleteView):
     model = Blog
     success_url = reverse_lazy('detail')
