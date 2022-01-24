@@ -21,10 +21,14 @@
     				<ul>
     					<li>{{ postview.text }}</li>
     				</ul>
+					<form action="#"
+						  method="post">
+						{% csrf_token %}
+						<small class="d-block"><a class="btn btn-sm btn-gray200"
+											  href="{% url 'detail' %}"><i
+							class="fa fa-external-link"></i> Delete </a></small>
 
-    				<small class="d-block"><a class="btn btn-sm btn-gray200"
-											  href="#"><i
-							class="fa fa-external-link"></i> Delete New</a></small>
+					</form>
     				<!-- Begin Comments -replace demowebsite with your own id
                     ================================================== -->
 <!--    				<div id="comments" class="mt-4">-->

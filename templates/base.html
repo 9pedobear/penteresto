@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load cache %}
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,8 +15,10 @@
 </head>
 
 <body>
+     {% cache 1 header %}
+         {% include 'header.html' %}
+     {% endcache %}
 
-    {% include 'header.html' %}
 
     {% block content %}
     {% endblock %}

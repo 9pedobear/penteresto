@@ -1,7 +1,5 @@
 import os
-
 from django.shortcuts import render
-
 from pinteresto import settings
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, \
@@ -13,6 +11,10 @@ from django.http import HttpResponse, Http404
 
 
 # Create your views here.
+def get_category(request, slug):
+    return render(request, 'gallery/categories.html')
+
+
 def home(request):
     context = {'file':FilesAdmin.objects.all()}
     return render(request, 'gallery/home.html', context=context)
@@ -32,6 +34,7 @@ def download(request, path):
 class DeleteNews(DeleteView):
     model = Blog
     success_url = reverse_lazy('detail')
+    context_object_name = 'delete'
 
 class UpdateNews(UpdateView):
     model = Blog
