@@ -1,9 +1,13 @@
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
-
+from django.shortcuts import render
+from django.urls import reverse
 # Create your models here.
 
 
 class News(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(verbose_name='Название', blank=True,
                              max_length=255)
     created = models.DateTimeField(auto_now_add=True)
@@ -14,6 +18,9 @@ class News(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+    def get_absolute_url(self):
+        return reverse('home')
 
     class Meta:
         verbose_name = 'Новость'
@@ -52,11 +59,11 @@ class Likes(models.Model):
 
 class Comments(models.Model):
     post = models.ForeignKey(News, on_delete=models.CASCADE)
-    author_name = models.CharField('Имя автора', max_length=55)
+    author_name = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.TextField('Комментарий', max_length=255)
 
     def __str__(self):
-        return self.author_name
+        return str(self.author_name)
 
     class Meta:
         verbose_name = 'Коментарий'
