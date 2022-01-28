@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField('Название', max_length=50)
-    content = models.TextField("Описание", blank=True)
-    tag = models.CharField("Теги", max_length=100, blank=True)
-    pub_date_post = models.DateTimeField("Дата публикации", auto_now_add=True)
+    content = models.TextField('Описание', blank=True)
+    pub_date_post = models.DateTimeField('Дата публикации', auto_now_add=True)
     image = models.ImageField(upload_to='photos/%Y/%m/%d/')
     likes = models.ManyToManyField(User, related_name='blog_posts')
     views = models.ManyToManyField(User, related_name='view_posts')
+    tags = models.ManyToManyField('Tag', blank=True, related_name='tag_posts')
 
     def __str__(self):
         return f"{self.title}"
@@ -30,6 +30,13 @@ class Post(models.Model):
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
         ordering = ['-pub_date_post']
+
+
+class Tag(models.Model):
+    title = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.title}"
 
 
 class Comment(models.Model):
