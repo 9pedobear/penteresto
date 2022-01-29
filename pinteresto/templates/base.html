@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home - Pintereso Bootstrap Template</title>
+    <title>{% block title %}{% endblock %}</title>
     <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
     <link rel="stylesheet" href="{% static 'assets/css/app.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/theme.css' %}">
@@ -23,7 +23,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarsDefault">
     	<ul class="navbar-nav mr-auto align-items-center">
-    		<form class="bd-search hidden-sm-down">
+    		<form class="bd-search hidden-sm-down" method="GET" action="{% url 'news:search' %}">
     			<input type="text" class="form-control bg-graylight border-0 font-weight-bold" id="search-input" placeholder="Search..." autocomplete="off">
     			<div class="dropdown-menu bd-search-results" id="search-results">
     			</div>

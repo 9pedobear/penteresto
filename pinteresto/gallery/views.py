@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from user.models import News, Comments, Category, Likes
 from django.http import Http404, HttpResponse
-from .forms import AddPostForm, AddCommentForm
+from .forms import AddPostForm, AddCommentForm, SearchForm
+from django.contrib.postgres.search import SearchVector, TrigramSimilarity
 
 
 # Create your views here.
@@ -10,7 +11,7 @@ from .forms import AddPostForm, AddCommentForm
 
 def index(request):
     all_news = News.objects.filter()
-    print(request.GET)
+    # print(request.GET)
     return render(request, 'gallery/index.html', {'all_news': all_news})
 
 
@@ -71,3 +72,39 @@ def addpost_new(request):
 
     context = {'form': form2}
     return render(request, 'gallery/create_post.html', context)
+
+
+def post_edit(request, pk):
+    post = get_object_or_404(News, pk=pk)
+    if request.method == "POST":
+        form = AddPostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            # return HttpResponse(do)
+            post.save()
+            return redirect('/', pk=post.pk)
+    else:
+        form = AddPostForm(instance=post)
+    return render(request, 'edit_do.html', {'form': form})
+
+
+def delete_com(request, pk):
+    comment = Comments.objects.get(pk=pk)
+    return redirect('/')
+
+
+def search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        results = News.objects.annotate(
+            similarity=TrigramSimilarity('title', query), ).filter(similarity__gt=0.3).order_by('-similarity')
+    return render(request, 'gallery/search.html', {
+                                            'form': form,
+                                            'query': query,
+                                            'results': results})
